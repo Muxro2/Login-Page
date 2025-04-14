@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import axios from 'axios'
 import './style.scss'
 
 export default function Login() {
@@ -7,7 +8,15 @@ export default function Login() {
 
     function onSubmit(e: React.SyntheticEvent) {
         e.preventDefault();
-        console.log(`User: ${email} \nPassword: ${password}`)
+        axios.post("http://localhost:3000/login", { email, password })
+        .then(result => {
+            if (result.data === "Success") {
+                console.log("logged in")
+            } else {
+                console.log("not logged in")
+            }
+        })
+        .catch (err => console.log(err))
     }
 
 
